@@ -1,5 +1,6 @@
 ngx.header.content_type = "text/plain"
 
+--[[
 local function custom_loader(module_name)
     local path = module_name:gsub("%.", "/") .. ".lua"
     local file = io.open("src/" .. path, "r")
@@ -15,7 +16,7 @@ end
  
 table.insert(package.loaders or package.searchers, 2, custom_loader)
  
-package.path = package.path .. ";src/?.lua"
+package.path = package.path .. ";src/?.lua"]]
 
 -- Hold globals, like important strings
 -- Stuff we're fine with exposing.
@@ -26,3 +27,5 @@ local error = _G.GLOBALS.error
 
 local req = require("utils.requires") -- Manage loading of modules.
 local http = req.load("http", "server")
+
+error.test()

@@ -7,6 +7,8 @@ local ERROR_STRINGS = {
     SERVER_ERROR = "Server error"
 }
 
-
+function funcs.test()
+    ngx.say("test")
+end
 
 return funcs
