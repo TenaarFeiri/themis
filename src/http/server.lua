@@ -1,11 +1,11 @@
 -- Handle server params like GET, POST, etc.
 local error = _G.GLOBALS.error
-local funcs = {}
+local server = {}
 
 ----------------------------
 -- Helper functions
 ----------------------------
-local function mergeTables(get, post)
+local function merge_tables(get, post)
     local result = {
         GET = get,
         POST = post
@@ -16,7 +16,7 @@ end
 -- Public functions
 ----------------------------
 
-function funcs.isAllowedMethod()
+function server.is_allowed_method()
     local method = ngx.req.get_method()
     if method ~= "POST" and method ~= "GET" then
         return false
@@ -24,15 +24,15 @@ function funcs.isAllowedMethod()
     return true
 end
 
-function funcs.getMethod()
+function server.get_method()
     return ngx.req.get_method()
 end
 
-function funcs.getData()
-    if not funcs.isAllowedMethod() then
+function server.get_data()
+    if not server.is_allowed_method() then
         return nil
     end
-    local method = funcs.getMethod()
+    local method = server.get_method()
     local getData = ngx.req.get_uri_args() -- Get any GET data if available.
     local postData = {}
 
@@ -41,7 +41,7 @@ function funcs.getData()
         postData = ngx.req.get_post_args()
     end
 
-    return mergeTables(getData, postData)
+    return merge_tables(getData, postData)
 end
 
-return funcs
+return server

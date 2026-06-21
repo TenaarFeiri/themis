@@ -12,13 +12,13 @@ local module_paths = {
         server = "http.server",
     }
 }
-local funcs = {}
+local requires = {}
 
-function funcs.load(category, module)
+function requires.load(category, module)
     if not module_paths[category] or not module_paths[category][module] then
         return nil
     end
     return require(module_paths[category][module])
 end
 
-return funcs
+return requires
